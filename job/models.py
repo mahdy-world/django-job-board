@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-Jop_Type = (
+JoP_Type = (
 
     ('full time' , 'full time'),
     ('part time' , 'part time'),
@@ -10,9 +10,9 @@ Jop_Type = (
 )
     
 
-class job (models.Model): #table
+class job(models.Model): #table
     title = models.CharField( max_length=100) #column
-    jop_type = models.CharField(max_length=15, choices=Jop_Type)
+    jop_type = models.CharField(max_length=15, choices=JoP_Type)
     discrations = models.TextField(max_length=1000)
     published_at = models.DateTimeField(auto_now=True)
     vacancy = models.IntegerField(default=1)
