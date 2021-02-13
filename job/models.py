@@ -8,6 +8,10 @@ JoP_Type = (
     ('part time' , 'part time'),
 
 )
+
+def image_upload(instance,filename):
+    imagename , extension = filename.split(".")
+    return "jobs/%s/%s.%s"%(instance.id,instance.id,extension)
     
 
 class job(models.Model): #table
@@ -19,6 +23,7 @@ class job(models.Model): #table
     salary = models.IntegerField(default=0)
     experience = models.IntegerField(default=1)
     category = models.ForeignKey('Category' , on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=image_upload)
     
 
 
