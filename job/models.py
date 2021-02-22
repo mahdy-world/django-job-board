@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django import forms
 # Create your models here.
 
 JoP_Type = (
@@ -45,5 +45,19 @@ class Category (models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Apply(models.Model):
+    job = models.ForeignKey(job, related_name= 'apply_job', on_delete= models.CASCADE)
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    website =  models.URLField(max_length = 200 ,null=True) 
+    cv = models.FileField(upload_to='apply/')
+    cover_letter = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
             
         
