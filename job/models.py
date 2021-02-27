@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from django import forms
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 JoP_Type = (
@@ -15,8 +17,9 @@ def image_upload(instance,filename):
     return "jobs/%s/%s.%s"%(instance.id,instance.id,extension)
     
 
-class job(models.Model): #table
-    title = models.CharField( max_length=100) #column
+class job(models.Model):
+    owner = models.ForeignKey(User, related_name ='job_owner', on_delete =models.CASCADE)
+    title = models.CharField( max_length=100) 
     jop_type = models.CharField(max_length=15, choices=JoP_Type)
     discrations = models.TextField(max_length=1000)
     published_at = models.DateTimeField(auto_now=True)
@@ -48,6 +51,7 @@ class Category (models.Model):
 
 
 class Apply(models.Model):
+   
     job = models.ForeignKey(job, related_name= 'apply_job', on_delete= models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
